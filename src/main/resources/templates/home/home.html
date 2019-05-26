@@ -14,15 +14,15 @@
   <a th:href="@{/logout}">Sign out</a>
 
 
-  <form style="margin-top: 180px"  class="form-horizontal" role="form" method="POST" th:action="@{/play}" th:object="${options}">
+  <form style="margin-top: 180px"  class="form-horizontal" role="form" method="post" th:action="@{/play}" th:object="${options}">
    <fieldset>
     <legend>Choose Theme</legend>
     <div class="container">
 
      <div style="margin-top: 30px">
       <label for="themes" style="margin-left: 10px" ><b>Theme</b></label>
-      <input   th:field="*{theme}" type="text" list="themes" name="themes">
-      <datalist id="themes">
+      <input type="text" list="themes" name="themes">
+      <datalist id="themes" >
        <option value="Animals"></option>
        <option value="Bakery"></option>
        <option value="Culture"></option>
@@ -32,8 +32,8 @@
       </datalist>
 
       <label for="levels" style="margin-left: 90px" ><b>Level</b></label>
-      <input   th:field="*{level}" type="text" list="levels" name="levels">
-      <datalist id="levels">
+      <input type="text" list="levels" name="levels">
+      <datalist id="levels" >
        <option value="Beginner"></option>
        <option value="Confirmed"></option>
        <option value="Expert"></option>
