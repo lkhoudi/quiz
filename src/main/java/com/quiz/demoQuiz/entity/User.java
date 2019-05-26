@@ -1,5 +1,8 @@
 package com.quiz.demoQuiz.entity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -95,4 +98,35 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public User(String email, String firstname, String lastname, String password, int active, Set<Role> roles) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+    }
+
+    public User(String email, String firstname, String lastname) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public User() {
+    }
+
+    public String toJson() throws JSONException {
+        JSONObject object =new JSONObject();
+        JSONObject userJson= new JSONObject();
+
+        userJson.put("firstname", firstname);
+        userJson.put("lastname", lastname);
+        userJson.put("email", email);
+        object.put("type", "user");
+        object.put("user", userJson);
+        return object.toString();
+    }
+
 }

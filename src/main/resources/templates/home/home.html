@@ -10,8 +10,51 @@
 </head>
 <body>
  <div class="container">
-  <h2>Hi <span th:utext="${userName}"></span>, this is the home page.</h2>
+  <h2>Hi <span th:utext="${userName}"></span>!</h2>
   <a th:href="@{/logout}">Sign out</a>
+
+
+  <form style="margin-top: 180px"  class="form-horizontal" role="form" method="POST" th:action="@{/play}" th:object="${options}">
+   <fieldset>
+    <legend>Choose Theme</legend>
+    <div class="container">
+
+     <div style="margin-top: 30px">
+      <label for="themes" style="margin-left: 10px" ><b>Theme</b></label>
+      <input   th:field="*{theme}" type="text" list="themes" name="themes">
+      <datalist id="themes">
+       <option value="Animals"></option>
+       <option value="Bakery"></option>
+       <option value="Culture"></option>
+       <option value="Ocean"></option>
+       <option value="Music"></option>
+       <option value="Countries"></option>
+      </datalist>
+
+      <label for="levels" style="margin-left: 90px" ><b>Level</b></label>
+      <input   th:field="*{level}" type="text" list="levels" name="levels">
+      <datalist id="levels">
+       <option value="Beginner"></option>
+       <option value="Confirmed"></option>
+       <option value="Expert"></option>
+      </datalist>
+     </div>
+
+     <div class="row" style="margin-top: 30px; margin-left: 10px ">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+       <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Start !</button>
+      </div>
+     </div>
+
+    </div>
+
+
+   </fieldset>
+  </form>
+
+
  </div>
+
 </body>
 </html>

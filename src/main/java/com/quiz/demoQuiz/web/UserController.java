@@ -1,5 +1,9 @@
 package com.quiz.demoQuiz.web;
 
+import com.quiz.demoQuiz.Serveur.parser.ParserJson;
+import com.quiz.demoQuiz.entity.Options;
+import com.quiz.demoQuiz.entity.QuizOptions;
+import com.quiz.demoQuiz.entity.Quizz;
 import com.quiz.demoQuiz.service.UserService;
 import com.quiz.demoQuiz.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +61,24 @@ public class UserController {
         return model;
     }
 
+    @RequestMapping(value= {"/play"}, method=RequestMethod.POST)
+    public ModelAndView play(@Valid Options options){
+        ModelAndView modelAndView = new ModelAndView();
+        ParserJson parserJson = new ParserJson();
+        Quizz quizz = parserJson.jsonparser(QuizOptions.valueOf(options.getTheme().toUpperCase()).name(), options.getLevel() );
+        modelAndView.addObject("quizz",quizz);
+        modelAndView.setViewName("home/play");
+        return modelAndView;
+    }
+
     @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView model = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        Options options = new Options();
         model.addObject("userName", user.getFirstname() + " " + user.getLastname());
+        model.addObject("options", options);
         model.setViewName("home/home");
         return model;
     }

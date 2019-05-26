@@ -1,6 +1,3 @@
-CREATE DATABASE quiz;
-
-DROP TABLE IF EXISTS role;
 CREATE TABLE  role (
                          role_id serial NOT NULL,
                          role varchar(255) default NULL,
