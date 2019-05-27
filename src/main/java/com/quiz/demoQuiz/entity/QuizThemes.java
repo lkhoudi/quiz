@@ -1,6 +1,8 @@
 package com.quiz.demoQuiz.entity;
 
-public enum QuizOptions {
+public enum QuizThemes {
+
+
     ANIMALS("animals.json"),
     BAKERY("bakery.json"),
     CULTURE("cultureGenerale.json"),
@@ -8,6 +10,14 @@ public enum QuizOptions {
     MUSIC("music.json"),
     COUNTRIES("worldCountries.json");
 
-    QuizOptions(String s) {
+    private final String value;
+
+    QuizThemes(String value) {
+        this.value = value;
+    }
+
+
+    public String getValue() {
+        return value;
     }
 }

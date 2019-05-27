@@ -2,7 +2,8 @@ package com.quiz.demoQuiz.web;
 
 import com.quiz.demoQuiz.Serveur.parser.ParserJson;
 import com.quiz.demoQuiz.entity.Options;
-import com.quiz.demoQuiz.entity.QuizOptions;
+import com.quiz.demoQuiz.entity.QuizLevels;
+import com.quiz.demoQuiz.entity.QuizThemes;
 import com.quiz.demoQuiz.entity.Quizz;
 import com.quiz.demoQuiz.service.UserService;
 import com.quiz.demoQuiz.entity.User;
@@ -11,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,7 +67,7 @@ public class UserController {
     public ModelAndView play(@RequestParam String themes, @RequestParam String levels){
         ModelAndView modelAndView = new ModelAndView();
         ParserJson parserJson = new ParserJson();
-        Quizz quizz = parserJson.jsonparser(QuizOptions.valueOf(themes).name(), levels);
+        Quizz quizz = parserJson.jsonparser(QuizThemes.valueOf(themes.toUpperCase()).getValue(), QuizLevels.valueOf(levels.toUpperCase()).getValue());
         modelAndView.addObject("quizz",quizz);
         modelAndView.setViewName("home/play");
         return modelAndView;
