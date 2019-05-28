@@ -20,13 +20,13 @@ public class Client {
 	private BufferedReader reader;
 	private PrintWriter writer;
 
-	public Client(String email, String firstname, String lastname,int port, InetAddress adresse) {
-		user= new User( email, firstname, lastname);
+	public Client(String username, String password,int port, InetAddress adresse) {
+		user= new User( username, password);
 		setServerLocation(adresse,port);
 	}
 
-	public Client(String email, String firstname, String lastname) {
-		user= new User( email, firstname, lastname);
+	public Client(String username) {
+		user= new User( username);
 	}
 
 	public void setServerLocation(InetAddress adresse, int port ) {
@@ -110,18 +110,16 @@ public class Client {
 		JSONObject object= new JSONObject();
 		object.put("type", "inscrire");
 		JSONObject objectUser = new JSONObject();
-		objectUser.put("email", user.getEmail());
-		objectUser.put("firstname", user.getFirstname());
-		objectUser.put("lastname", user.getLastname());
+		objectUser.put("username", user.getUsername());
 		objectUser.put("password", user.getPassword());
 		object.put("data", objectUser);
 		envoyerSMS(object.toString());
 	}
 
 	public static void main(String[] agrs) {
-		Client client= new Client("soume@gmail.com","ibrahima","soume");
+		Client client= new Client("soume@gmail.com");
 
-		client.setServerLocation("192.168.0.11", 8990);
+		client.setServerLocation("10.78.13.22", 8990);
 
 		if(client.connectionServer()) {
 			client.communication();

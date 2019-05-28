@@ -85,12 +85,12 @@ public class Group {
 	
 	/**
 	 * 
-	 * @param number
+	 * @param username
 	 * @param message
 	 */
-	public void envoyerSauf(String number, String message) {
+	public void envoyerSauf(String username, String message) {
 		for(Entry<ThreadUserForServer,Map<Integer,String>> elm: users.entrySet()) {
-			if(!elm.getKey().getUser().getEmail().equals(number))
+			if(!elm.getKey().getUser().getUsername().equals(username))
 				elm.getKey().envoyer(message);
 		}
 	}

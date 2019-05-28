@@ -2,46 +2,31 @@ package com.quiz.demoQuiz.entity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "user_table")
-public class User {
+public class User implements Serializable, UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "firstname")
-    private String firstname;
-
-    @Column(name = "lastname")
-    private String lastname;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "active")
-    private int active;
-
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
-    private Set<Role> roles;
 
     public int getId() {
         return id;
@@ -51,28 +36,49 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public User(String username) {
+        this.username = username;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public User() {
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public String getUsername() {
+        return username;
     }
 
-    public String getLastname() {
-        return lastname;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {
@@ -83,47 +89,11 @@ public class User {
         this.password = password;
     }
 
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public User(String email, String firstname, String lastname, String password, int active, Set<Role> roles) {
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.password = password;
-        this.active = active;
-        this.roles = roles;
-    }
-
-    public User(String email, String firstname, String lastname) {
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-
-    public User() {
-    }
-
     public String toJson() throws JSONException {
         JSONObject object =new JSONObject();
         JSONObject userJson= new JSONObject();
 
-        userJson.put("firstname", firstname);
-        userJson.put("lastname", lastname);
-        userJson.put("email", email);
+        userJson.put("username", username);
         object.put("type", "user");
         object.put("user", userJson);
         return object.toString();

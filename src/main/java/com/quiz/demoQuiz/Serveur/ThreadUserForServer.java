@@ -114,11 +114,11 @@ public class ThreadUserForServer extends Thread{
 	
 	/**
 	 * 
-	 * @param email
+	 * @param username
 	 * @return
 	 */
-	public boolean estUser(String email) {
-		return user.getEmail().equals(email);
+	public boolean estUser(String username) {
+		return user.getUsername().equals(username);
 	}
 	
 	/**
@@ -129,9 +129,7 @@ public class ThreadUserForServer extends Thread{
 		JSONObject message= new JSONObject();
 		message.put("type", "salutation");
 		JSONObject salutation = new JSONObject();
-		salutation.put("email", user.getEmail());
-		salutation.put("firstname", user.getFirstname());
-		salutation.put("lastname", user.getLastname());
+		salutation.put("username", user.getUsername());
 		message.put("salutation", salutation);
 		message.put("message",info);
 		envoyer(message.toString());
@@ -239,10 +237,8 @@ public class ThreadUserForServer extends Thread{
 	
 	public void inscrire(String jsonString) throws JSONException {
 		JSONObject objectUser=new JSONObject(jsonString);
-		String firstname=objectUser.getString("firstname");
-		String lastname=objectUser.getString("lastname");
-		String email=objectUser.getString("email");
-		user= new User(email,firstname, lastname);
+		String username=objectUser.getString("username");
+		user= new User(username);
 		serveur.addUser(user);
 		informerAutre();
 		//inserer l'utilisateur dans la base de donn�es
