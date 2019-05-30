@@ -15,7 +15,7 @@
     <div class="alert alert-danger" role="alert" th:if="${param.error}">
         The email or password is incorrect!
     </div>
-    <form th:action="@{/login}" method="post" >
+    <form th:action="@{/login}" method="post"  >
         <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
         <label for="username" class="sr-only">Email</label>
         <input type="username" id="username" name="username" class="form-control" placeholder="Email" required autofocus>
